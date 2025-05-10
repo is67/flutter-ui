@@ -1,39 +1,47 @@
 import 'package:flutter/material.dart';
+import 'edit_profile_screen.dart';
+import 'message_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+  const ProfileScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('My Profile')),
-      body: Column(
-        children: [
-          const SizedBox(height: 20),
-          const CircleAvatar(
-            radius: 40,
-            backgroundImage: NetworkImage("https://i.pravatar.cc/150?img=15"),
+      appBar: AppBar(
+        title: const Text('Username'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.message),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const MessageScreen()),
+              );
+            },
           ),
-          const SizedBox(height: 10),
-          const Text('john_doe', style: TextStyle(fontSize: 20)),
-          const SizedBox(height: 20),
-          Expanded(
-            child: GridView.builder(
-              padding: const EdgeInsets.all(8),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                mainAxisSpacing: 4,
-                crossAxisSpacing: 4,
-              ),
-              itemCount: 12,
-              itemBuilder:
-                  (context, index) => Image.network(
-                    "https://source.unsplash.com/random/200x200?sig=$index",
-                    fit: BoxFit.cover,
-                  ),
-            ),
+          IconButton(
+            icon: const Icon(Icons.edit),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const EditProfileScreen()),
+              );
+            },
           ),
         ],
+      ),
+      body: GridView.builder(
+        itemCount: 9,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3,
+        ),
+        itemBuilder: (context, index) {
+          return Image.network(
+            'assets/images/profile_1.jpg',
+            fit: BoxFit.cover,
+          );
+        },
       ),
     );
   }

@@ -1,35 +1,33 @@
 import 'package:flutter/material.dart';
 import 'chat_screen.dart';
+import '../widgets/message_tile.dart';
 
 class MessageScreen extends StatelessWidget {
-  const MessageScreen({super.key});
+  const MessageScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final messages = List.generate(10, (index) => 'User $index');
-
     return Scaffold(
-      appBar: AppBar(title: const Text('Messages')),
+      appBar: AppBar(
+        title: const Text('Direct Messages'),
+        backgroundColor: Colors.black,
+      ),
+      backgroundColor: Colors.black,
       body: ListView.builder(
-        itemCount: messages.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            leading: CircleAvatar(
-              backgroundImage: NetworkImage(
-                "https://i.pravatar.cc/150?img=${index + 20}",
-              ),
-            ),
-            title: Text(messages[index]),
-            subtitle: const Text('Hello!'),
-            trailing: const Icon(Icons.camera_alt_outlined),
+        itemCount: 10,
+        itemBuilder: (_, index) {
+          return GestureDetector(
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (_) => ChatScreen(username: messages[index]),
-                ),
+                MaterialPageRoute(builder: (_) => const ChatScreen()),
               );
             },
+            child: MessageTile(
+              username: 'User $index',
+              lastMessage: 'Hey, how are you?',
+              time: '${index + 1}h',
+            ),
           );
         },
       ),

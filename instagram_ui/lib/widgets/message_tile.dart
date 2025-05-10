@@ -1,23 +1,32 @@
 import 'package:flutter/material.dart';
 
 class MessageTile extends StatelessWidget {
-  const MessageTile({super.key});
+  final String username;
+  final String lastMessage;
+  final String time;
+
+  const MessageTile({
+    Key? key,
+    required this.username,
+    required this.lastMessage,
+    required this.time,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       leading: const CircleAvatar(
-        backgroundImage: AssetImage('assets/images/profile_1.jpg'),
+        backgroundImage: NetworkImage('assets/images/profile_1.jpg'),
       ),
-      title: const Text(
-        "friend_username",
-        style: TextStyle(color: Colors.white),
+      title: Text(username),
+      subtitle: Text(lastMessage, maxLines: 1, overflow: TextOverflow.ellipsis),
+      trailing: Text(
+        time,
+        style: const TextStyle(fontSize: 12, color: Colors.grey),
       ),
-      subtitle: const Text(
-        "Sent a photo",
-        style: TextStyle(color: Colors.grey),
-      ),
-      trailing: const Text("1h", style: TextStyle(color: Colors.grey)),
+      onTap: () {
+        // Navigasi ke halaman chat bisa ditambahkan di sini
+      },
     );
   }
 }
